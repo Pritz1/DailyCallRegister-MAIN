@@ -170,6 +170,7 @@ public class Elearning extends Fragment {
                                       myHolder.testnamead.setText(model.getTestName());
                                       myHolder.stdate.setText(model.getActiveDateFrom());
                                       myHolder.enddate.setText(model.getActiveDateTo());
+                                      myHolder.ttltime.setText(model.getTotalTime()+" Mins");
                                   }
 
                                   @Override
@@ -178,13 +179,14 @@ public class Elearning extends Fragment {
                                   }
 
                                   class Holder extends RecyclerView.ViewHolder {
-                                      TextView testnamead,stdate,enddate;
+                                      TextView testnamead,stdate,enddate,ttltime;
 
                                       public Holder(@NonNull View itemView) {
                                           super(itemView);
                                           testnamead = itemView.findViewById(R.id.testname);
                                           stdate = itemView.findViewById(R.id.stdate);
                                           enddate = itemView.findViewById(R.id.enddate);
+                                          ttltime = itemView.findViewById(R.id.ttltime);
                                       }
                                   }
                               }
@@ -220,6 +222,7 @@ public class Elearning extends Fragment {
                                          myHolder.testnamead.setText(Html.fromHtml("<u>"+model.getTestName()+"</u>"));
                                          myHolder.stdate.setText(model.getActiveDateFrom());
                                          myHolder.enddate.setText(model.getActiveDateTo());
+                                         myHolder.ttltime.setText(model.getTotalTime()+" Mins");
                                          myHolder.itemView.setTag(i);
                                          myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                              @Override
@@ -241,13 +244,14 @@ public class Elearning extends Fragment {
                                      }
 
                                      class Holder extends RecyclerView.ViewHolder {
-                                         TextView testnamead,stdate,enddate;
+                                         TextView testnamead,stdate,enddate,ttltime;
 
                                          public Holder(@NonNull View itemView) {
                                              super(itemView);
                                              testnamead = itemView.findViewById(R.id.testname);
                                              stdate = itemView.findViewById(R.id.stdate);
                                              enddate = itemView.findViewById(R.id.enddate);
+                                             ttltime = itemView.findViewById(R.id.ttltime);
                                          }
                                      }
                                  }

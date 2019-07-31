@@ -249,7 +249,7 @@ public class DocDCRProduct extends AppCompatActivity {
             }
         });*/
 
-        apicall1();
+        apicall1(); //first API call -> also contains 1st pop up which is displayed on click of product entry.
 
     }
 
@@ -503,7 +503,7 @@ public class DocDCRProduct extends AppCompatActivity {
 
                                             myHolder.detailing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                                 @Override
-                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //checkbox onclick
                                                     if (isChecked) {
                                                         model.setDETFLAG("Y");
                                                         /*if (myHolder.qty.getText().toString().equalsIgnoreCase("")) {
@@ -516,7 +516,8 @@ public class DocDCRProduct extends AppCompatActivity {
                                                             myHolder.rx.setText(model.getRxQTY());
                                                         }*/
 
-                                                        if (model.isTaggedflag() && model.getHsbrandid().contains(model.getGRP()) && model.getDEMO().equalsIgnoreCase("Y") && (model.isSpldrflag() || model.getLastmodifydate().equalsIgnoreCase(Global.dcrdate)) && model.isDateflag()) {
+                                                        if (model.isTaggedflag() && model.getHsbrandid().contains(model.getGRP()) && model.getDEMO().equalsIgnoreCase("Y") && (model.isSpldrflag()
+                                                                || model.getLastmodifydate().equalsIgnoreCase(Global.dcrdate)) && model.isDateflag()) {
                                                             popupSelection(model.getPRODID(), cntcd, model.isFlag1176(), model.isFlag1177(), model.isFlag3009(), model.isTaggedflag(), model.isFlag1187(), "popupTag", model.getPNAME());
                                                         } else {
                                                             popupSelection(model.getPRODID(), cntcd, model.isFlag1176(), model.isFlag1177(), model.isFlag3009(), model.isTaggedflag(), model.isFlag1187(), "popup", model.getPNAME());
@@ -577,8 +578,8 @@ public class DocDCRProduct extends AppCompatActivity {
         }
     }
 
-    public class addProductEntry extends AsyncTask<String, String, String> {
-        HttpURLConnection conn;
+    public class addProductEntry extends AsyncTask<String, String, String> { //AsyncTask is used to save data in background when it is going to take lot of time, this should be used.
+        HttpURLConnection conn;                                        //also if it is must to save data then also use Async
         URL url = null;
 
         @Override
@@ -594,7 +595,7 @@ public class DocDCRProduct extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(RetrofitClient.BASE_URL + "addDcrProductEntry.php");
+                url = new URL(RetrofitClient.BASE_URL + "addDcrProductEntry.php"); //API Call
 
             } catch (MalformedURLException e) {
 
@@ -691,12 +692,12 @@ public class DocDCRProduct extends AppCompatActivity {
             try {
                 JSONObject jobj = new JSONObject(result);
 
-                if (!jobj.getBoolean("error")) {
-                    DcrddrlstItem modelx = DoctorsData.dcrdlst.get(position);
-                    modelx.setCompletecall(iscompcall);
+                if (!jobj.getBoolean("error")) { //handle response
+                    DcrddrlstItem modelx = DoctorsData.dcrdlst.get(position);//set iscompletecall value after saving data into database
+                    modelx.setCompletecall(iscompcall);  //dcrdlst this list comes from the prev doctorsData class. //when modelx is changed then dcrdlst is auto updated with the data.
                     //onBackPressed();
                     menuOperation(param);
-                    DoctorsData.doctorslist.getAdapter().notifyDataSetChanged();
+                    DoctorsData.doctorslist.getAdapter().notifyDataSetChanged(); //this is the recyclerview of prev screen.
                     Toast.makeText(DocDCRProduct.this, jobj.getString("errormsg"), Toast.LENGTH_SHORT).show();
 
                 }
@@ -1738,7 +1739,7 @@ public class DocDCRProduct extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void menuOperation(String mode) {
+    private void menuOperation(String mode) { //product and gift entry of next doctor
         int nextposition = position + 1;
         if (mode.equalsIgnoreCase("NEXT")) {
             if (nextposition < DoctorsData.dcrdlst.size()) {
