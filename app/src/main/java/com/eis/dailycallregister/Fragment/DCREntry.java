@@ -702,6 +702,17 @@ public class DCREntry extends Fragment {
                                         Holder holder = new Holder(view);
                                         return holder;
                                     }
+            // changed by bhushan on 04-08-2019
+            //add these 2 methods every time in recyclerview adapter to avoid auto change of edit text data
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                return position;
+            }
 
                                     @Override
                                     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
@@ -838,7 +849,7 @@ public class DCREntry extends Fragment {
 
                                                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(context.INPUT_METHOD_SERVICE);
                                                     imm.hideSoftInputFromWindow(sv.getWindowToken(), 0);
-                                                    recyclerView.getAdapter().notifyDataSetChanged();
+                                                    //recyclerView.getAdapter().notifyDataSetChanged();
                                                 }
                                             }
                                         });
@@ -913,7 +924,8 @@ public class DCREntry extends Fragment {
                                                                 }
                                                             }, mYear, mMonth, mDay);
                                                     datePickerDialog.show();
-                                                    recyclerView.getAdapter().notifyDataSetChanged();
+                                                    //never use notifyDataSetChanged in OnBindViewHolder() --> Bhushan 08/08/2019
+                                                    //recyclerView.getAdapter().notifyDataSetChanged();
                                                 }
                                             }
                                         });
@@ -971,6 +983,7 @@ public class DCREntry extends Fragment {
                 recyclerView.clearFocus();
                 Gson gson = new GsonBuilder().create();
                 JsonArray myCustomArray = gson.toJsonTree(samplegift).getAsJsonArray();
+
                 //Toast.makeText(getActivity(), myCustomArray.toString(), Toast.LENGTH_LONG).show();
                 updateSampleGift(myCustomArray.toString());
                 dialog.dismiss();

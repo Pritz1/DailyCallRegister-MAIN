@@ -369,7 +369,7 @@ public class DoctorsData extends AppCompatActivity {
             @Override
             public void onFailure(Call<AreaJntWrkRes> call1, Throwable t) {
                 progressDialoge.dismiss();
-                Snackbar snackbar = Snackbar.make(sv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
+                Snackbar snackbar = Snackbar.make(sv, "Failed to fetch joint work data !", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Re-try", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
