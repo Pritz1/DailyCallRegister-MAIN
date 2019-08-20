@@ -15,6 +15,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -163,8 +164,9 @@ public class DCRRCPA extends AppCompatActivity {
                                                 prodid = brandlist.get(x).getProdid();
                                             }
                                         }
+                                        //Log.d("Global.dcrdate",Global.dcrdate);
                                         String yrmth = Global.dcrdateyear+""+Global.dcrdatemonth;
-                                        new DCRRCPA.addEntry().execute(Global.netid, scntcd, yrmth, prodid, myCustomArray.toString(), brx, Global.dbprefix);
+                                        new DCRRCPA.addEntry().execute(Global.netid, scntcd, yrmth, prodid, myCustomArray.toString(), brx, Global.dbprefix,Global.dcrdate); //dcrdate added by prithvi 20/08/2019
                                     }
 
                                 }else{
@@ -318,15 +320,18 @@ public class DCRRCPA extends AppCompatActivity {
     private void getCompetitorApi(String prodid) {
         complst.clear();
         progressDialoge.show();
+        //Log.d("prodid : ",prodid);
         retrofit2.Call<GetRCPACompProdLstRes> call = RetrofitClient.getInstance().getApi().rcpa_comp_prod(scntcd, Global.netid,
-                Global.dcrdateyear+""+Global.dcrdatemonth, prodid, Global.dbprefix);
+                Global.dcrdateyear+""+Global.dcrdatemonth, prodid, Global.dbprefix,Global.dcrdate);
         call.enqueue(new Callback<GetRCPACompProdLstRes>() {
             @Override
             public void onResponse(Call<GetRCPACompProdLstRes> call, Response<GetRCPACompProdLstRes> response) {
                 progressDialoge.dismiss();
                 GetRCPACompProdLstRes res = response.body();
+                //Log.d("res 111 : " ,res.toString());
                 if(!res.isError()){
                     complst = res.getRcpacomplist();
+                    //Log.d("complst" , complst.toString());
                     complist.setVisibility(View.VISIBLE);
                     submit.setEnabled(true);
                     complist.getAdapter().notifyDataSetChanged();
@@ -337,7 +342,7 @@ public class DCRRCPA extends AppCompatActivity {
             @Override
             public void onFailure(Call<GetRCPACompProdLstRes> call, Throwable t) {
                 progressDialoge.dismiss();
-                Toast.makeText(DCRRCPA.this, "Failed to get brand list !", Toast.LENGTH_LONG).show();
+                Toast.makeText(DCRRCPA.this, "Failed to get competitor brand list !", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -345,14 +350,21 @@ public class DCRRCPA extends AppCompatActivity {
     private void getBrandsApi() {
         arrayListB.clear();
         progressDialoge.show();
+
+
         retrofit2.Call<GetRCPABrandListRes> call = RetrofitClient.getInstance().getApi().rcpa_brands(scntcd, Global.netid,
-                Global.dcrdateyear+""+Global.dcrdatemonth, d1d2, Global.dbprefix);
+                Global.dcrdateyear+""+Global.dcrdatemonth, d1d2, Global.dbprefix,Global.dcrdate);
+
         call.enqueue(new Callback<GetRCPABrandListRes>() {
+
             @Override
             public void onResponse(Call<GetRCPABrandListRes> call, Response<GetRCPABrandListRes> response) {
-                progressDialoge.dismiss();
+
+                    progressDialoge.dismiss();
                 GetRCPABrandListRes res = response.body();
+                //Log.d("res : ",res.toString());
                 if(!res.isError()){
+
                     brandlist = res.getRcpabrandlist();
                     for (int i = 0; i < brandlist.size(); i++) {
                         arrayListB.add(brandlist.get(i).getPname());
@@ -452,7 +464,8 @@ public class DCRRCPA extends AppCompatActivity {
                         .appendQueryParameter("prodid", params[3])
                         .appendQueryParameter("jsonarray", params[4])
                         .appendQueryParameter("brdrx", params[5])
-                        .appendQueryParameter("DBPrefix", params[6]);
+                        .appendQueryParameter("DBPrefix", params[6])
+                        .appendQueryParameter("dcrdate", params[7]);
 
                 String query = builder.build().getEncodedQuery();
 

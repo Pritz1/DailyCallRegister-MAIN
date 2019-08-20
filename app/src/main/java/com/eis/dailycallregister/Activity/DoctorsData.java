@@ -121,8 +121,18 @@ public class DoctorsData extends AppCompatActivity {
         jointwrklist.setNestedScrollingEnabled(false);
         jointwrklist.setLayoutManager(new LinearLayoutManager(DoctorsData.this));
         sv = findViewById(R.id.sv);
-        field = Global.getFieldName(Integer.parseInt(Global.dcrdatemonth));
-        finyear = Global.getFinancialYr(Global.dcrdatemonth, Global.dcrdateyear);
+        try {
+            field = Global.getFieldName(Integer.parseInt(Global.dcrdatemonth));
+            finyear = Global.getFinancialYr(Global.dcrdatemonth, Global.dcrdateyear);
+        }catch(Exception e){
+            Global.password = null;
+            Toast.makeText(this, "Due to Some Technical Issue Your ID is Logged Out. Please Login Again!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(DoctorsData.this, LoginScreen.class);
+            //Bundle bndlanimation = ActivityOptions.makeCustomAnimation(DoctorsData.this, R.anim.trans_right_in, R.anim.trans_right_out).toBundle();
+            startActivity(intent);
+            //finish();
+
+        }
         dcrdlst.clear();
         independentCkbCode();
         jointWorkingSetAdaper();

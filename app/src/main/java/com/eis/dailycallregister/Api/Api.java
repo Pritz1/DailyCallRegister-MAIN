@@ -634,7 +634,8 @@ public interface Api {
             @Field("netid") String netid,
             @Field("yrmth") String yrmth,
             @Field("d1d2") String d1d2,
-            @Field("DBPrefix") String dbprefix
+            @Field("DBPrefix") String dbprefix,
+            @Field("dcrdate") String dcrdate
     );
 
     @FormUrlEncoded
@@ -644,7 +645,8 @@ public interface Api {
             @Field("netid") String netid,
             @Field("yrmth") String yrmth,
             @Field("prodid") String prodid,
-            @Field("DBPrefix") String dbprefix
+            @Field("DBPrefix") String dbprefix,
+            @Field("dcrdate") String dcrdate
     );
 
     @FormUrlEncoded

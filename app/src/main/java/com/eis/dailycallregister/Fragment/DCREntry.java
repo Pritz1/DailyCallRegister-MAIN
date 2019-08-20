@@ -274,6 +274,8 @@ public class DCREntry extends Fragment {
     private void checkDCRIsPerfectlyFilledOrNot() {
 
         progressDialoge.show();
+        //Log.d("Global.dcrno : ",Global.dcrno);
+        //Log.d("Global.dbprefix : ",Global.dbprefix);
         Call<IsDCRCorrectRes> call1 = RetrofitClient
                 .getInstance().getApi().isDCRCorrectlyFilled(Global.dcrno, Global.dbprefix);
         call1.enqueue(new Callback<IsDCRCorrectRes>() {
