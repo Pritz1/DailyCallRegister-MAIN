@@ -166,7 +166,7 @@ public class DCRRCPA extends AppCompatActivity {
                                         }
                                         //Log.d("Global.dcrdate",Global.dcrdate);
                                         String yrmth = Global.dcrdateyear+""+Global.dcrdatemonth;
-                                        new DCRRCPA.addEntry().execute(Global.netid, scntcd, yrmth, prodid, myCustomArray.toString(), brx, Global.dbprefix,Global.dcrdate); //dcrdate added by prithvi 20/08/2019
+                                        new DCRRCPA.addEntry().execute(Global.netid, scntcd, yrmth, prodid, myCustomArray.toString(), brx, Global.dbprefix,Global.dcrdate,doccntcd); //dcrdate added by prithvi 20/08/2019
                                     }
 
                                 }else{
@@ -322,7 +322,7 @@ public class DCRRCPA extends AppCompatActivity {
         progressDialoge.show();
         //Log.d("prodid : ",prodid);
         retrofit2.Call<GetRCPACompProdLstRes> call = RetrofitClient.getInstance().getApi().rcpa_comp_prod(scntcd, Global.netid,
-                Global.dcrdateyear+""+Global.dcrdatemonth, prodid, Global.dbprefix,Global.dcrdate);
+                Global.dcrdateyear+""+Global.dcrdatemonth, prodid, Global.dbprefix,Global.dcrdate,doccntcd);
         call.enqueue(new Callback<GetRCPACompProdLstRes>() {
             @Override
             public void onResponse(Call<GetRCPACompProdLstRes> call, Response<GetRCPACompProdLstRes> response) {
@@ -353,7 +353,7 @@ public class DCRRCPA extends AppCompatActivity {
 
 
         retrofit2.Call<GetRCPABrandListRes> call = RetrofitClient.getInstance().getApi().rcpa_brands(scntcd, Global.netid,
-                Global.dcrdateyear+""+Global.dcrdatemonth, d1d2, Global.dbprefix,Global.dcrdate);
+                Global.dcrdateyear+""+Global.dcrdatemonth, d1d2, Global.dbprefix,Global.dcrdate,doccntcd);
 
         call.enqueue(new Callback<GetRCPABrandListRes>() {
 
@@ -465,7 +465,8 @@ public class DCRRCPA extends AppCompatActivity {
                         .appendQueryParameter("jsonarray", params[4])
                         .appendQueryParameter("brdrx", params[5])
                         .appendQueryParameter("DBPrefix", params[6])
-                        .appendQueryParameter("dcrdate", params[7]);
+                        .appendQueryParameter("dcrdate", params[7])
+                        .appendQueryParameter("doccntcd", params[8]);
 
                 String query = builder.build().getEncodedQuery();
 
