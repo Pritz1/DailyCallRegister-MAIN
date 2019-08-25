@@ -166,7 +166,7 @@ public class DCRRCPA extends AppCompatActivity {
                                         }
                                         //Log.d("Global.dcrdate",Global.dcrdate);
                                         String yrmth = Global.dcrdateyear+""+Global.dcrdatemonth;
-                                        //Log.d("Global.dcrno : ",Global.dcrno);
+                                        //Log.d("myCustomArray: ",myCustomArray.toString());
                                         new DCRRCPA.addEntry().execute(Global.netid, scntcd, yrmth, prodid, myCustomArray.toString(), brx, Global.dbprefix,Global.dcrdate,doccntcd,Global.dcrno); //dcrdate added by prithvi 20/08/2019
                                     }
 
@@ -208,17 +208,7 @@ public class DCRRCPA extends AppCompatActivity {
         brandlst.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(brandonchangeacc){
-                    String hkey = brandlst.getSelectedItem().toString().trim();
-                    String RX,prodid="";
-                    for(int j=0;j<brandlist.size();j++){
-                        RcpabrandlistItem temp = brandlist.get(j);
-                        if(temp.getPname().equalsIgnoreCase(hkey)){
-                            RX = temp.getRX();
-                            prodid = temp.getProdid();
-                            brandrx.setText(RX);
-                        }
-                    }
-                    getCompetitorApi(prodid);
+                    GetCompetotorsList();
                 }
             }
 
@@ -228,6 +218,20 @@ public class DCRRCPA extends AppCompatActivity {
         });
 
         getChemistApi();
+    }
+
+    private void GetCompetotorsList() {
+        String hkey = brandlst.getSelectedItem().toString().trim();
+        String RX,prodid="";
+        for(int j=0;j<brandlist.size();j++){
+            RcpabrandlistItem temp = brandlist.get(j);
+            if(temp.getPname().equalsIgnoreCase(hkey)){
+                RX = temp.getRX();
+                prodid = temp.getProdid();
+                brandrx.setText(RX);
+            }
+        }
+        getCompetitorApi(prodid);
     }
 
     private boolean checkIfAllOkOrNot() {
@@ -470,6 +474,7 @@ public class DCRRCPA extends AppCompatActivity {
                         .appendQueryParameter("doccntcd", params[8])
                         .appendQueryParameter("dcrno", params[9]);
 
+
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -531,7 +536,7 @@ public class DCRRCPA extends AppCompatActivity {
             progressDialoge.dismiss();
             try {
                 JSONObject jobj = new JSONObject(result);
-
+//Log.d("result : ",result);
                 if (!jobj.getBoolean("error")) {
                     //onBackPressed();
                     String hkey = brandlst.getSelectedItem().toString().trim();
@@ -544,6 +549,11 @@ public class DCRRCPA extends AppCompatActivity {
                         }
                     }
                     Toast.makeText(DCRRCPA.this, jobj.getString("errormsg"), Toast.LENGTH_SHORT).show();
+                    GetCompetotorsList();
+                }else{
+                    submit.setEnabled(false);
+                    Toast.makeText(DCRRCPA.this,  jobj.getString("errormsg"), Toast.LENGTH_LONG).show();
+
                 }
 
             } catch (JSONException e) {
