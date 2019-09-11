@@ -74,7 +74,7 @@ import retrofit2.Response;
 public class DCREntry extends Fragment {
 
     View view;
-    ViewDialog progressDialoge;
+    ViewDialog progressDialoge,progressDialoge2,progressDialoge3; //Added BBy Bhushan 11/09/2019 -> progressDialoge2,progressDialoge3
     ScrollView sv;
     public MaterialCardView m1, m2, m3;
     public CardView dd, cd, ed, nond;
@@ -99,6 +99,10 @@ public class DCREntry extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_dcrentry, container, false);
         progressDialoge = new ViewDialog(getActivity());
+		//aded by bhushan 11/09/2019
+        progressDialoge2 = new ViewDialog(getActivity());
+        progressDialoge3 = new ViewDialog(getActivity());
+		//aded by bhushan 11/09/2019 : end
         sv = view.findViewById(R.id.sv);
         m1 = view.findViewById(R.id.carddcrdate);
         remark = view.findViewById(R.id.remark);
@@ -122,6 +126,7 @@ public class DCREntry extends Fragment {
         l2.setVisibility(View.GONE);
         l3.setVisibility(View.GONE);
         getdcrdate();
+        //progressDialoge.dismiss();
 
         dd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -563,7 +568,7 @@ public class DCREntry extends Fragment {
                 progressDialoge.dismiss();
                 //Log.d("progress 5-->",ecode);
                 if (!res.isError()) {
-                    Log.d("error msg-->", res.getErrormsg());
+                    //Log.d("error msg-->", res.getErrormsg());
                     salesEntryRemainingAlert(res.getErrormsg());
                 }
             }
@@ -657,14 +662,14 @@ public class DCREntry extends Fragment {
     }
 
     private void fetchSampleGiftForm() {
-        progressDialoge.show();
+        progressDialoge2.show(); //by bhushan progressDialoge -> progressDialoge2 
         Call<SampleAndGiftReceiptRes> call1 = RetrofitClient
                 .getInstance().getApi().SampleAndGiftReceipt(Global.ecode, Global.dbprefix);
         call1.enqueue(new Callback<SampleAndGiftReceiptRes>() {
             @Override
             public void onResponse(Call<SampleAndGiftReceiptRes> call1, Response<SampleAndGiftReceiptRes> response) {
                 SampleAndGiftReceiptRes res = response.body();
-                progressDialoge.dismiss();
+                progressDialoge2.dismiss();
                 samplegift = res.getSampleAndGiftReceipt();
                 if (samplegift.size() > 0) {
                     showSampleAndGiftPopup(getActivity());
@@ -673,7 +678,7 @@ public class DCREntry extends Fragment {
 
             @Override
             public void onFailure(Call<SampleAndGiftReceiptRes> call1, Throwable t) {
-                progressDialoge.dismiss();
+                progressDialoge2.dismiss();
                 Snackbar snackbar = Snackbar.make(sv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Re-try", new View.OnClickListener() {
                             @Override
@@ -704,17 +709,17 @@ public class DCREntry extends Fragment {
                                         Holder holder = new Holder(view);
                                         return holder;
                                     }
-            // changed by bhushan on 04-08-2019
-            //add these 2 methods every time in recyclerview adapter to avoid auto change of edit text data
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
+                                    // changed by bhushan on 04-08-2019
+                                    //add these 2 methods every time in recyclerview adapter to avoid auto change of edit text data
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return position;
+                                    }
 
-            @Override
-            public int getItemViewType(int position) {
-                return position;
-            }
+                                    @Override
+                                    public int getItemViewType(int position) {
+                                        return position;
+                                    }
 
                                     @Override
                                     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
@@ -1001,24 +1006,27 @@ public class DCREntry extends Fragment {
 
     private void updateSampleGift(final String myCustomArray) {
         String finyr = Global.getFinancialYr(Global.dcrdatemonth, Global.dcrdateyear);
-        progressDialoge.show();
-        Call<DefaultResponse> call = RetrofitClient.getInstance().getApi().UpdateSampleGiftAcceptance(Global.ecode, Global.netid, finyr, myCustomArray, Global.dbprefix);
+        progressDialoge3.show();
+        Call<DefaultResponse> call = RetrofitClient.getInstance().getApi().
+                UpdateSampleGiftAcceptance(Global.ecode, Global.netid, finyr, myCustomArray, Global.dbprefix);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
 
                 DefaultResponse dres = response.body();
-                progressDialoge.dismiss();
+                progressDialoge3.dismiss();
                 if (!dres.isError()) {
+                   // Log.d("!dres.isError() ","!dres.isError()");
                     Toast.makeText(getActivity(), dres.getErrormsg(), Toast.LENGTH_LONG).show();
                 } else {
+                   // Log.d("dres.isError() true","dres.isError() true");
                     Toast.makeText(getActivity(), dres.getErrormsg(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                progressDialoge.dismiss();
+                progressDialoge3.dismiss();
                 Snackbar.make(sv, "Falied to update data !", Snackbar.LENGTH_LONG)
                         .setAction("Re try", new View.OnClickListener() {
                             @Override
