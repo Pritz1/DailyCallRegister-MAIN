@@ -3,6 +3,9 @@ package com.eis.dailycallregister.Activity;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import com.bumptech.glide.Glide;
 import com.eis.dailycallregister.Api.RetrofitClient;
@@ -35,6 +38,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +97,7 @@ public class UploadActivity extends AppCompatActivity {
         filePath = i.getStringExtra("filePath");
         fileUri = i.getStringExtra("fileUri");
         isimgcropped = i.getExtras().getBoolean("isimgcropped");
-
+//Log.d("isimgcropped : ",isimgcropped+"");
         // boolean flag to identify the media type, image or video
         boolean isImage = i.getBooleanExtra("isImage", true);
 
@@ -198,6 +202,9 @@ public class UploadActivity extends AppCompatActivity {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(RetrofitClient.BASE_URL + "fileUpload.php");
 
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                    Locale.getDefault()).format(new Date()); //prithvi 14092019
+
             try {
                 AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                         new AndroidMultiPartEntity.ProgressListener() {
@@ -220,6 +227,7 @@ public class UploadActivity extends AppCompatActivity {
                 entity.addPart("netid", new StringBody(Global.netid));
                 entity.addPart("cntcd", new StringBody(cntcd));
                 entity.addPart("DBPrefix", new StringBody(Global.dbprefix));
+                entity.addPart("timeStamp", new StringBody(timeStamp)); //prithvi
 
                 totalSize = entity.getContentLength();
                 httppost.setEntity(entity);
@@ -249,7 +257,7 @@ public class UploadActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            //Log.e(TAG, "Response from server: " + result);
+            Log.d("result ", "Response from server: " + result);
             progressDialoge.dismiss();
             try {
                 JSONObject jsonObject = new JSONObject(result);
