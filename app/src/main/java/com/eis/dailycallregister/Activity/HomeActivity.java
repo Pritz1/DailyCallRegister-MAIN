@@ -3,10 +3,12 @@ package com.eis.dailycallregister.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +25,7 @@ import com.eis.dailycallregister.Fragment.Elearning;
 import com.eis.dailycallregister.Fragment.Help;
 import com.eis.dailycallregister.Fragment.MTPConfirmation;
 import com.eis.dailycallregister.Fragment.Options;
+import com.eis.dailycallregister.Fragment.ReportFragment;
 import com.eis.dailycallregister.Fragment.UploadVisitingCard;
 import com.eis.dailycallregister.Fragment.VisitPlanDocLst;
 import com.eis.dailycallregister.Others.Global;
@@ -126,6 +129,8 @@ public class HomeActivity extends AppCompatActivity
             displaySelectedScreen(R.id.nav_vps);
         } else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("elearn")) {
             displaySelectedScreen(R.id.nav_eln);
+        } else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("report")) { //added by aniket 21092019
+            displaySelectedScreen(R.id.nav_rep);
         }
     }
 
@@ -230,6 +235,9 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.nav_eln:
                 fragment = new Elearning();
+                break;
+            case R.id.nav_rep:  //added by aniket 21092019
+                fragment=new ReportFragment();
                 break;
             case R.id.nav_help:
                 //new Global().notAllowed(HomeActivity.this);

@@ -284,6 +284,7 @@ public class LoginScreen extends AppCompatActivity {
                                         Global.ename = msgsplt[2];
                                         Global.ecode = msgsplt[3];
                                         Global.emplevel = msgsplt[4];
+                                        getSysprm();//aniket  21/09/2019
                                         intent.putExtra("openfrag", "home");
                                         Bundle bndlanimation = ActivityOptions.makeCustomAnimation(LoginScreen.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                                         startActivity(intent, bndlanimation);
@@ -492,5 +493,30 @@ public class LoginScreen extends AppCompatActivity {
         AlertDialog dialog2 = builder.create();
         dialog2.show();
 
+    }
+    public void getSysprm()                 //added by Aniket 14/09/2019
+    {
+        Call<DefaultResponse> call = RetrofitClient.getInstance().getApi().sysPrm(Global.dbprefix);
+        Log.d("call",call.toString());
+        call.enqueue(new Callback<DefaultResponse>()
+        {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response)
+            {
+                DefaultResponse dResponse = response.body();
+
+                if (!dResponse.isError())
+                {
+                    String msgsplt = dResponse.getErrormsg();
+                    Global.FinancialStartDate=msgsplt;
+                }
+
+            }
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t)
+            {
+              Toast.makeText(LoginScreen.this,"Unable To Fetch Data",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

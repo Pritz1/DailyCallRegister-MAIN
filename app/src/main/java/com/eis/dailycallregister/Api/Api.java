@@ -680,5 +680,8 @@ public interface Api {
             @Field("DBPrefix") String dbprefix
     );
 
-
+    @FormUrlEncoded
+    @POST("sysPrm.php")  //added by aniket 14/09/2019
+    Call<DefaultResponse> sysPrm(
+            @Field("DBPrefix") String dbprefix);
 }

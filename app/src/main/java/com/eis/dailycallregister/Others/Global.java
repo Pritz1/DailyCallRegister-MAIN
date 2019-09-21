@@ -41,6 +41,8 @@ public class Global {
     public static String emplevel = null;
     public static int misscallpopup = 0;
     public static String whichmth = null;
+    public static String FinancialStartDate= null;			//added by aniket 14/09/2019
+
 
     public void clearGlobal(String mode) {
         if (mode.equalsIgnoreCase("All")) {
@@ -138,7 +140,9 @@ public class Global {
     }
 
     public static String getFinancialYr(String logMth, String logYr) {
-        String finStrtMth = "04";
+      //  Log.d("startmonth",startmonth);
+        String finStrtMth = FinancialStartDate.split("-")[01];// "04";   added by aniket 14/09/2019
+       // Log.d("finStrtMth",finStrtMth);
         //String logMth = "01";
         //String logYr = "2019";
 

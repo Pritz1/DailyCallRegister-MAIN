@@ -30,6 +30,10 @@
             android:icon="@drawable/ic_school"
             android:title="E-Learning" />
         <item
+            android:id="@+id/nav_rep"
+            android:icon="@drawable/ic_report"
+            android:title="Report" />
+        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"
             android:title="Help Center" />

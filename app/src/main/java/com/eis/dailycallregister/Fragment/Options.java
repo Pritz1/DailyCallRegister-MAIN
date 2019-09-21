@@ -52,7 +52,7 @@ import retrofit2.Response;
 
 public class Options extends Fragment {
 
-    MaterialButton dcr, mtp, uploadcard, vps, elearn;
+    MaterialButton dcr, mtp, uploadcard, vps, elearn,report; //report --> added by aniket 21/09/19
     ViewDialog progressDialoge;
     List<MisscalldrsItem> misscall = new ArrayList<>();
     LinearLayout menuoptions;
@@ -82,6 +82,7 @@ public class Options extends Fragment {
         mTableLayout = view.findViewById(R.id.tableLayout);
         uploadcard = view.findViewById(R.id.uploadcard);
         elearn = view.findViewById(R.id.elearn);
+        report = view.findViewById(R.id.report); //added by aniket
         /*empacc.clear();
         //CD
         empacc.add("02680");
@@ -247,6 +248,20 @@ public class Options extends Fragment {
                 intent.putExtra("date", Global.date);
                 intent.putExtra("dbprefix", Global.dbprefix);
                 intent.putExtra("openfrag", "elearn");
+                Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                startActivity(intent, bndlanimation);
+                getActivity().finish();
+            }
+        });
+
+        report.setOnClickListener(new View.OnClickListener() { //added by aniket 21/09/19
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                intent.putExtra("ecode", Global.ecode);
+                intent.putExtra("date", Global.date);
+                intent.putExtra("dbprefix", Global.dbprefix);
+                intent.putExtra("openfrag", "report");
                 Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                 startActivity(intent, bndlanimation);
                 getActivity().finish();

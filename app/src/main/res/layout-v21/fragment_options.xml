@@ -148,7 +148,19 @@
             android:gravity="center"
             android:textSize="25sp"/>
     </android.support.v7.widget.CardView>-->
-
-
+<android.support.design.button.MaterialButton
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:text="Report"
+    android:autoSizeTextType="uniform"
+    android:autoSizeMinTextSize="5sp"
+    android:autoSizeMaxTextSize="18sp"
+    android:autoSizeStepGranularity="1sp"
+    android:id="@+id/report"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
+    app:cornerRadius="8dp"
+    app:rippleColor="@color/textcolorwhite"/>
 
 </LinearLayout>
