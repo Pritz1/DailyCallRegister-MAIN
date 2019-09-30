@@ -401,7 +401,8 @@ public class DoctorsData extends AppCompatActivity {
         Global.wrktype = valspt[1];
 
         retrofit2.Call<DoctorListAWRes> call1 = RetrofitClient
-                .getInstance().getApi().getDoctorDataList(Global.ecode, Global.netid, Global.tcpid, Global.dcrdate, Global.dcrdatemonth, Global.dcrdateyear, Global.dbprefix);
+                .getInstance().getApi().getDoctorDataList(Global.ecode, Global.netid, Global.tcpid, Global.dcrdate, Global.dcrdatemonth,
+                        Global.dcrdateyear, Global.dbprefix);
         call1.enqueue(new Callback<DoctorListAWRes>() {
             @Override
             public void onResponse(retrofit2.Call<DoctorListAWRes> call1, Response<DoctorListAWRes> response) {

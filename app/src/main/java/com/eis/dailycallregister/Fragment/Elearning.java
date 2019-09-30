@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -223,6 +224,9 @@ public class Elearning extends Fragment {
                                          myHolder.stdate.setText(model.getActiveDateFrom());
                                          myHolder.enddate.setText(model.getActiveDateTo());
                                          myHolder.ttltime.setText(model.getTotalTime()+" Mins");
+                                         myHolder.maxAttmpts.setText((Integer.parseInt(model.getMaxAttempts())!=0 ? model.getMaxAttempts() : "NA" )); //prithvi 30-09-2019 to restrict user from giving test if o. of attempts have crossed max attempt given
+                                         myHolder.noOfAttmpts.setText(model.getAttempted());//prithvi 30-09-2019
+
                                          myHolder.itemView.setTag(i);
                                          myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                              @Override
@@ -232,6 +236,7 @@ public class Elearning extends Fragment {
                                                  intent.putExtra("testname", model.getTestName());
                                                  intent.putExtra("totques", model.getNoOfQuestions());
                                                  intent.putExtra("time", model.getTotalTime());
+                                                 intent.putExtra("noOfAttmpts", model.getAttempted()); //prithvi 30-09-2019
                                                  Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                                                  startActivity(intent, bndlanimation);
                                              }
@@ -244,7 +249,7 @@ public class Elearning extends Fragment {
                                      }
 
                                      class Holder extends RecyclerView.ViewHolder {
-                                         TextView testnamead,stdate,enddate,ttltime;
+                                         TextView testnamead,stdate,enddate,ttltime,maxAttmpts,noOfAttmpts;
 
                                          public Holder(@NonNull View itemView) {
                                              super(itemView);
@@ -252,6 +257,8 @@ public class Elearning extends Fragment {
                                              stdate = itemView.findViewById(R.id.stdate);
                                              enddate = itemView.findViewById(R.id.enddate);
                                              ttltime = itemView.findViewById(R.id.ttltime);
+                                             maxAttmpts = itemView.findViewById(R.id.maxAttmpts);
+                                             noOfAttmpts = itemView.findViewById(R.id.noOfAttmpts);
                                          }
                                      }
                                  }

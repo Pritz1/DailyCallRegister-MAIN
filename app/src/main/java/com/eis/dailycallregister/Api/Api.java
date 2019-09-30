@@ -677,7 +677,8 @@ public interface Api {
             @Field("TotalCorrect") String TotalCorrect,
             @Field("NoOfQuestions") String NoOfQuestions,
             @Field("TimeTaken") String TimeTaken,
-            @Field("DBPrefix") String dbprefix
+            @Field("DBPrefix") String dbprefix,
+            @Field("noOfAttmpts") String noOfAttmpts
     );
 
     @FormUrlEncoded

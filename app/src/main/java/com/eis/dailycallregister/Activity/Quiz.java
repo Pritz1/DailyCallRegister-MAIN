@@ -57,7 +57,7 @@ public class Quiz extends AppCompatActivity {
     ViewDialog progressDialoge;
     Button submit;
     List<TestqueslstItem> testqueslst = new ArrayList<>();
-    String testid,testname,totques;
+    String testid,testname,totques,noOfAttmpts; //noOfAttmpts by prithvi 30-09-2019 o send to the api, so that D call is not required to get last attemt no.
     int count = 0;
     LinearLayout beforesubmit,aftersubmit;
     RecyclerView resultsummary;
@@ -94,6 +94,8 @@ public class Quiz extends AppCompatActivity {
         testid = getIntent().getStringExtra("testid");
         testname = getIntent().getStringExtra("testname");
         totques = getIntent().getStringExtra("totques");
+        noOfAttmpts = getIntent().getStringExtra("noOfAttmpts");
+
         tvtestname.setText(testname+" ("+totques+" Questions)");
         ttltime.setText(getIntent().getStringExtra("time"));
         setRecyAdapter();
@@ -381,8 +383,10 @@ public class Quiz extends AppCompatActivity {
     private void callSaveApi(final double percent, int totalCorrect, int noOfQuestions, String exacttime) {
         beforesubmit.setVisibility(View.GONE);
         progressDialoge.show();
-        Call<DefaultResponse> call = RetrofitClient.getInstance().getApi().saveTestResult(testid,Global.ecode,Double.toString(percent),Integer.toString(totalCorrect)
-                ,Integer.toString(noOfQuestions),exacttime,Global.dbprefix);
+
+        Call<DefaultResponse> call = RetrofitClient.getInstance().getApi().saveTestResult(testid,Global.ecode,Double.toString(percent),
+                 Integer.toString(totalCorrect)
+                ,Integer.toString(noOfQuestions),exacttime,Global.dbprefix,noOfAttmpts);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
@@ -411,7 +415,7 @@ public class Quiz extends AppCompatActivity {
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
                 progressDialoge.dismiss();
-                Toast.makeText(Quiz.this, "Failed to save ?", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Quiz.this, "Failed to save !!", Toast.LENGTH_SHORT).show();
             }
         });
 

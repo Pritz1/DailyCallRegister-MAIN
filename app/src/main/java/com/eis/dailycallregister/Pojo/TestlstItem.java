@@ -30,6 +30,12 @@ public class TestlstItem{
 
 	@SerializedName("ActiveDateFrom")
 	private String activeDateFrom;
+//prithvi 300919
+	@SerializedName("Attempted")
+	private String attempted;
+
+	@SerializedName("maxAttempts")
+	private String maxAttempts;
 
 	public void setTestId(String testId){
 		this.testId = testId;
@@ -103,6 +109,22 @@ public class TestlstItem{
 		return activeDateFrom;
 	}
 
+	public String getAttempted() {
+		return attempted;
+	}
+
+	public void setAttempted(String attempted) {
+		this.attempted = attempted;
+	}
+
+	public String getMaxAttempts() {
+		return maxAttempts;
+	}
+
+	public void setMaxAttempts(String maxAttempts) {
+		this.maxAttempts = maxAttempts;
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -115,7 +137,9 @@ public class TestlstItem{
 			",noOfQuestions = '" + noOfQuestions + '\'' + 
 			",totalTime = '" + totalTime + '\'' + 
 			",addedByUserId = '" + addedByUserId + '\'' + 
-			",activeDateFrom = '" + activeDateFrom + '\'' + 
+			",activeDateFrom = '" + activeDateFrom + '\'' +
+			",attempted = '"+ attempted +'\'' +
+			",maxAttempts = '"+ attempted +'\'' +
 			"}";
 		}
 }
