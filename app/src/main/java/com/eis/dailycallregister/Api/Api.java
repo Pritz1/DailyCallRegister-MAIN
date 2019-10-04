@@ -24,6 +24,8 @@ import com.eis.dailycallregister.Pojo.GetRCPABrandListRes;
 import com.eis.dailycallregister.Pojo.GetRCPACompProdLstRes;
 import com.eis.dailycallregister.Pojo.GetRCPAPulseChemist;
 import com.eis.dailycallregister.Pojo.IsDCRCorrectRes;
+import com.eis.dailycallregister.Pojo.MgrRCPARes;
+import com.eis.dailycallregister.Pojo.MgrRcpaDrRes;
 import com.eis.dailycallregister.Pojo.MissCallDocsRes;
 import com.eis.dailycallregister.Pojo.NewMTPListOfMTHRes;
 import com.eis.dailycallregister.Pojo.NewNonFliedWrkRes;
@@ -653,6 +655,33 @@ public interface Api {
             @Field("dcrno") String dcrno
     );
 
+
+    @FormUrlEncoded
+    @POST("mgr_rcpa_comp_prod.php")                     //added by aniket 01/09/2019
+    Call<GetRCPACompProdLstRes> mgr_rcpa_comp_prod(
+            @Field("cntcd") String cntcd,
+            @Field("prodid") String prodid,
+            @Field("wnetid") String wnetid,
+            @Field("DBPrefix") String dbprefix,
+            @Field("netid") String netid,
+            @Field("date") String date,
+            @Field("drcntcd") String drcntcd
+    );
+
+
+    @FormUrlEncoded
+    @POST("mgr_rcpa_brands.php")                             //added by aniket 01/09/2019
+    Call<GetRCPABrandListRes> mgr_rcpa_brands(
+            @Field("drcntcd") String drcntcd,
+            @Field("wnetid") String wnetid,
+            @Field("netid") String netid,
+            @Field("DBPrefix") String dbprefix,
+            @Field("date") String date,
+            @Field("cntcd") String cntcd,
+            @Field("d1d2") String d1d2
+    );
+
+
     @FormUrlEncoded
     @POST("elearning_first_api.php")
     Call<EleaningMainRes> getElearningData(
@@ -682,7 +711,27 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("sysPrm.php")  //added by aniket 14/09/2019
-    Call<DefaultResponse> sysPrm(
-            @Field("DBPrefix") String dbprefix);
+    @POST("sysPrm.php")
+    Call<DefaultResponse> sysPrm(@Field("DBPrefix") String dbprefix); //added by aniket 14/09/2019
+
+
+    @FormUrlEncoded
+    @POST("getHqPsrList.php")                               //added by aniket 01/09/2019
+    Call<MgrRCPARes> getHqPsrListUnderMgr(
+            @Field("ecode") String ecode,
+            @Field("DBPrefix") String dbprefix,
+            @Field("yr") String yr,
+            @Field("mth") String mth,
+            @Field("lvl") String emplevel);
+
+
+    @FormUrlEncoded
+    @POST("getDrList.php")                     //added by aniket 01/09/2019
+    Call<MgrRcpaDrRes> getDrList(
+            @Field("netid") String netid,
+            @Field("DBPrefix") String dbprefix
+    );
+
+
+
 }

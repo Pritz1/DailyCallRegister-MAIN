@@ -30,7 +30,7 @@ import com.eis.dailycallregister.Fragment.UploadVisitingCard;
 import com.eis.dailycallregister.Fragment.VisitPlanDocLst;
 import com.eis.dailycallregister.Others.Global;
 import com.eis.dailycallregister.R;
-
+import com.eis.dailycallregister.Fragment.MgrRcpaFragment;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
@@ -131,6 +131,8 @@ public class HomeActivity extends AppCompatActivity
             displaySelectedScreen(R.id.nav_eln);
         } else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("report")) { //added by aniket 21092019
             displaySelectedScreen(R.id.nav_rep);
+        }else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("mgrrcpa")){
+            displaySelectedScreen(R.id.nav_mgrrcpa);                  //added by Aniket 26/09/2019
         }
     }
 
@@ -239,6 +241,16 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_rep:  //added by aniket 21092019
                 fragment=new ReportFragment();
                 break;
+
+            case R.id.nav_mgrrcpa:                              //added by aniket  26/09/2019
+                if (Global.emplevel.equalsIgnoreCase("1") ) {
+
+                    new Global().psrNotAllowed(HomeActivity.this);
+                }else{
+                    fragment = new MgrRcpaFragment();
+                }
+                break;
+
             case R.id.nav_help:
                 //new Global().notAllowed(HomeActivity.this);
                 fragment = new Help();

@@ -23,6 +23,10 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Activity.Quiz"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activity.MgrRcpaDrList"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activity.MgrRCPA"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".Activity.DCRRCPA"
             android:screenOrientation="portrait"/>
         <activity

@@ -52,7 +52,7 @@ import retrofit2.Response;
 
 public class Options extends Fragment {
 
-    MaterialButton dcr, mtp, uploadcard, vps, elearn,report; //report --> added by aniket 21/09/19
+    MaterialButton dcr, mtp, uploadcard, vps, elearn,report,mgrrcpa;//report --> added by aniket 21/09/19 --> dcrrcpa
     ViewDialog progressDialoge;
     List<MisscalldrsItem> misscall = new ArrayList<>();
     LinearLayout menuoptions;
@@ -83,6 +83,7 @@ public class Options extends Fragment {
         uploadcard = view.findViewById(R.id.uploadcard);
         elearn = view.findViewById(R.id.elearn);
         report = view.findViewById(R.id.report); //added by aniket
+        mgrrcpa=view.findViewById(R.id.mgrrcpa); //added by aniket
         /*empacc.clear();
         //CD
         empacc.add("02680");
@@ -154,6 +155,12 @@ public class Options extends Fragment {
                 mtp.setVisibility(View.GONE);
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
+
+
+            }
+            else //added by aniket
+            {
+                mgrrcpa.setVisibility(View.GONE);
             }
 
         } else{
@@ -177,6 +184,12 @@ public class Options extends Fragment {
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
             }
+            else
+            {
+                mgrrcpa.setVisibility(View.GONE);
+            }
+
+
         }
         Global.whichmth = null;
         dcr.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +278,27 @@ public class Options extends Fragment {
                 Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                 startActivity(intent, bndlanimation);
                 getActivity().finish();
+            }
+        });
+
+        mgrrcpa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {                                                //added by Aniket 26/09/2019
+                if (Global.emplevel.equalsIgnoreCase("1") )
+                {
+                    new Global().psrNotAllowed(getActivity());
+            }
+                else {
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    intent.putExtra("ecode", Global.ecode);
+                    intent.putExtra("date", Global.date);
+                    intent.putExtra("dbprefix", Global.dbprefix);
+                    intent.putExtra("openfrag","mgrrcpa");
+                    Bundle bndlanimation=ActivityOptions.makeCustomAnimation(getActivity(),R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+                    startActivity(intent,bndlanimation);
+                    getActivity().finish();
+
+                }
             }
         });
 

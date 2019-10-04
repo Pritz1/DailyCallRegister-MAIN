@@ -10,24 +10,7 @@
     android:id="@+id/menuoptions"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <!--<android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="16dp"
-        android:id="@+id/dcr"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:backgroundTint="@color/colorPrimaryDark"
-        card_view:cardCornerRadius="8dp"
-        android:clickable="true"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="DCR ENTRY"
-            android:textColor="@color/textcolorwhite"
-            android:gravity="center"
-            android:textSize="25sp"/>
-    </android.support.v7.widget.CardView>-->
+
 
     <android.support.design.button.MaterialButton
         android:layout_width="match_parent"
@@ -62,26 +45,7 @@
         android:textColor="@color/textcolorwhite"
         app:rippleColor="@color/colorPrimaryDark"/>
 
-    <!--<android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:backgroundTint="@color/colorPrimaryDark"
-        card_view:cardCornerRadius="8dp"
-        android:id="@+id/uploadcard"
-        android:clickable="true"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="UPLOAD VISITING CARD"
-            android:textColor="@color/textcolorwhite"
-            android:gravity="center"
-            android:textSize="25sp"/>
-    </android.support.v7.widget.CardView>-->
+
 
     <android.support.design.button.MaterialButton
         android:layout_width="match_parent"
@@ -132,27 +96,6 @@
         app:rippleColor="@color/colorPrimary"/>
 
 
-    <!--<android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:id="@+id/mtp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:backgroundTint="@color/textcolorgray"
-        card_view:cardCornerRadius="8dp"
-        android:clickable="true"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="MONTHLY TOUR PROGRAM"
-            android:textColor="@color/textcolorwhite"
-            android:gravity="center"
-            android:textSize="25sp"/>
-    </android.support.v7.widget.CardView>-->
-
     <android.support.design.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -168,5 +111,22 @@
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
         app:rippleColor="@color/colorPrimary"/>
+
+
+    <android.support.design.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="RCPA"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="5sp"
+        android:autoSizeMaxTextSize="18sp"
+        android:autoSizeStepGranularity="1sp"
+        android:id="@+id/mgrrcpa"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        app:cornerRadius="8dp"
+        android:textColor="@color/textcolorwhite"
+        app:rippleColor="@color/colorPrimary"/>                  <!--added by Aniket 14/09/2019-->
 
 </LinearLayout>

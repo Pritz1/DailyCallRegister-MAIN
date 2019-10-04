@@ -139,6 +139,22 @@ public class Global {
         dialog.show();
     }
 
+    public void psrNotAllowed(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);                  //added aniket 28/09/2019
+        builder.setCancelable(true);
+        builder.setMessage("Only AFM and RM can access this feature !");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     public static String getFinancialYr(String logMth, String logYr) {
       //  Log.d("startmonth",startmonth);
         String finStrtMth = FinancialStartDate.split("-")[01];// "04";   added by aniket 14/09/2019
