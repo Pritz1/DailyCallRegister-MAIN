@@ -155,6 +155,7 @@ public class Options extends Fragment {
                 mtp.setVisibility(View.GONE);
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
+                report.setVisibility(View.GONE);
 
 
             }
@@ -183,6 +184,7 @@ public class Options extends Fragment {
                 mtp.setVisibility(View.GONE);
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
+                report.setVisibility(View.GONE);
             }
             else
             {
