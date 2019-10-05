@@ -75,7 +75,7 @@ public class MgrRCPA extends AppCompatActivity
         RecyclerView complist;
         MaterialButton submit,cancel;
         LinearLayout ll1,ll2,ll3;
-        String drcntcd,doctorname,wnetid;
+        String drcntcd,doctorname,wnetid,hname;
         ViewDialog progressDialoge;
         List<RcpapulsechemistItem> pulsechemlist = new ArrayList();
         List<RcpabrandlistItem> brandlist = new ArrayList();
@@ -100,13 +100,15 @@ public class MgrRCPA extends AppCompatActivity
             drcntcd = getIntent().getStringExtra("cntcd");
             doctorname = getIntent().getStringExtra("drname");
             wnetid=getIntent().getStringExtra("wnetid");
-            if (Global.hname.contains("(A)")) {
+            hname=getIntent().getStringExtra("hname");
+
+            if (hname.contains("(A)")) {
                 d1d2 = "A";
-            } else if (Global.hname.contains("(B)")) {
+            } else if (hname.contains("(B)")) {
                 d1d2 = "B";
-            } else if (Global.hname.contains("(C)")) {
+            } else if (hname.contains("(C)")) {
                 d1d2 = "C";
-            } else if (Global.hname.contains("(D)")) {
+            } else if (hname.contains("(D)")) {
                 d1d2 = "D";
             }
             progressDialoge = new ViewDialog(com.eis.dailycallregister.Activity.MgrRCPA.this);

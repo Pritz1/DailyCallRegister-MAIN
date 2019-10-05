@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.SearchView;
 
@@ -40,7 +41,7 @@ public class MgrRcpaDrList extends AppCompatActivity {
 
      RecyclerView drlistrecvw;
      ViewDialog progressDialoge;
-    ConstraintLayout nsv;
+    RelativeLayout nsv;
     SearchView searchview;
 
     LinearLayout ll1;
@@ -181,6 +182,7 @@ public class MgrRcpaDrList extends AppCompatActivity {
                         intent.putExtra("wnetid", model.getNetid());
                         intent.putExtra("drname", model.getDrname());
                         intent.putExtra("cntcd", model.getCntcd());
+                        intent.putExtra("hname", hname);
                         Bundle bndlanimation = ActivityOptions.makeCustomAnimation(MgrRcpaDrList.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                         startActivity(intent, bndlanimation);
                     }
