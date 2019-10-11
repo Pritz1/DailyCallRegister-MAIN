@@ -17,14 +17,15 @@
         <item name="drawerArrowStyle">@style/DrawerIconStyle</item>
         <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">@font/whitneybook</item>
+
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="DrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -32,4 +33,16 @@
         <item name="color">@color/colorPrimary</item>
     </style>
 
+    <style name="AppSearchView" parent="Theme.AppCompat.Light" >
+
+        <item name="colorPrimary">@color/action_bar_bg_color</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@color/charcoal</item>
+
+        <item name="android:fontFamily">@font/whitneybook</item>
+    </style>
 </resources>
