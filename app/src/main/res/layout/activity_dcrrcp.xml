@@ -89,7 +89,8 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="RX QTY/WK"
+                android:hint="Rx Qty/Wk"
+                android:textSize="16sp"
                 android:inputType="number"
                 android:digits="1234567890"
                 android:maxLength="6"

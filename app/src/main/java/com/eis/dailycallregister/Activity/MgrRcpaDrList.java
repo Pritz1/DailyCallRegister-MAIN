@@ -123,7 +123,7 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
           @Override
           public void onResponse(Call<MgrRcpaDrRes> call, Response<MgrRcpaDrRes> response) {
               progressDialoge.dismiss();
-             Log.d("response",response.toString());
+             //Log.d("response",response.toString());
               MgrRcpaDrRes res = response.body();
             //  Log.d("response 2",res.toString());
 

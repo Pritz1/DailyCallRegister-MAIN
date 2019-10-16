@@ -23,7 +23,7 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="RX QTY/WK"
+            android:hint="Rx Qty/Wk"
             android:textSize="15sp"
             android:id="@+id/comprxqty"
             android:layout_weight="3"
