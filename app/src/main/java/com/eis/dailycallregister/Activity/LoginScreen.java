@@ -3,8 +3,10 @@ package com.eis.dailycallregister.Activity;
 import android.Manifest;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -64,6 +67,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import io.reactivex.internal.subscriptions.BooleanSubscription;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,6 +86,10 @@ public class LoginScreen extends AppCompatActivity {
     boolean allgranted = false;
     boolean callpermissiongranted = false;
     public static String web_url;
+//aniket 16-10-2019
+    CheckBox remuserpass;
+    public static final String PREFS_NAME="PrefsFile";
+    SharedPreferences preferences;//=getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +108,10 @@ public class LoginScreen extends AppCompatActivity {
         pass = findViewById(R.id.pass);
         login = findViewById(R.id.login);
         spnArea = findViewById(R.id.spnarea);
+		//aniket 16-10-2019
+        remuserpass=findViewById(R.id.remuserpass);
+        preferences=getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
         getArea();
 
         // initiate the date picker and a button*/
@@ -132,6 +144,9 @@ public class LoginScreen extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        getDetails();         //Added by aniket 16/10/2019
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -287,6 +302,7 @@ public class LoginScreen extends AppCompatActivity {
                                         getSysprm();//aniket  21/09/2019
                                         intent.putExtra("openfrag", "home");
                                         Bundle bndlanimation = ActivityOptions.makeCustomAnimation(LoginScreen.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                                        getPrefreence();                         //Added by aniket 16/10/2019
                                         startActivity(intent, bndlanimation);
                                         finish();
 
@@ -519,4 +535,43 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
     }
+
+
+    public void getPrefreence()                           //Added by aniket 16/10/2019
+    {
+            if(remuserpass.isChecked())
+            {
+
+                Boolean chk=remuserpass.isChecked();
+               SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("username",uid.getText().toString());
+                editor.putString("password",pass.getText().toString());
+                editor.putBoolean("isChecked",chk);
+                editor.apply();
+               // Toast.makeText(LoginScreen.this,"Username & Password saved!",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                preferences.edit().clear().apply();
+            }
+    }
+    private void getDetails()                                //Added by aniket 16/10/2019
+    {
+        SharedPreferences sharedPreferences=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        if(sharedPreferences.contains("username"))
+        {
+            String username=sharedPreferences.getString("username","not found");
+            uid.setText(username);
+        }
+        if(sharedPreferences.contains("password"))
+        {
+            String password=sharedPreferences.getString("password","not found");
+            pass.setText(password);
+        }
+        if(sharedPreferences.contains("isChecked"))
+        {
+            Boolean b=sharedPreferences.getBoolean("isChecked",false);
+            remuserpass.setChecked(b);
+        }
+    }
+
 }

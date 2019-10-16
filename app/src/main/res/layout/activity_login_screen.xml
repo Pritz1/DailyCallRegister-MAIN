@@ -178,6 +178,22 @@
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF" />
 
+                <CheckBox
+                    android:id="@+id/remuserpass"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="Remember Me"
+                    android:layout_gravity="center"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="1sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:paddingLeft="5sp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"/>    <!--added by aniket 16/10/2019-->
+
+
                 <android.support.design.button.MaterialButton
                     android:id="@+id/login"
                     android:layout_width="250dp"
@@ -185,7 +201,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="60dp"
                     android:gravity="center"
                     android:text="Login"
