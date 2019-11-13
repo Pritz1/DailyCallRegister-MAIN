@@ -380,6 +380,13 @@ public class LoginScreen extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spnArea.setAdapter(adapter);
 
+
+                if(null!=preferences && preferences.contains("position"))                //Added by aniket 22/10/2019
+                {
+                    int position =preferences.getInt("position",0);
+                    //Log.d("position 3",""+position);
+                    spnArea.setSelection(position);
+                }
             }
 
             @Override
@@ -546,6 +553,7 @@ public class LoginScreen extends AppCompatActivity {
                SharedPreferences.Editor editor=preferences.edit();
                 editor.putString("username",uid.getText().toString());
                 editor.putString("password",pass.getText().toString());
+                editor.putInt("position",spnArea.getSelectedItemPosition());
                 editor.putBoolean("isChecked",chk);
                 editor.apply();
                // Toast.makeText(LoginScreen.this,"Username & Password saved!",Toast.LENGTH_SHORT).show();
