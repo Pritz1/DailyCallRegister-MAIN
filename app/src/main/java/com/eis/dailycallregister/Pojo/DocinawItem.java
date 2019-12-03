@@ -17,6 +17,17 @@ public class DocinawItem{
 	@SerializedName("CNTCD")
 	private String cNTCD;
 
+	@SerializedName("vstCrdPrsnt")
+	private String vstCrdPrsnt;
+
+	public String getVstCrdPrsnt() {
+		return vstCrdPrsnt;
+	}
+
+	public void setVstCrdPrsnt(String vstCrdPrsnt) {
+		this.vstCrdPrsnt = vstCrdPrsnt;
+	}
+
 	public void setTEMPTCP(String tEMPTCP){
 		this.tEMPTCP = tEMPTCP;
 	}
@@ -57,6 +68,7 @@ public class DocinawItem{
 			",dRCD = '" + dRCD + '\'' +
 			",dRNAME = '" + dRNAME + '\'' +
 			",cNTCD = '" + cNTCD + '\'' + 
+			",vstCrdPrsnt = '" + vstCrdPrsnt + '\'' +
 			"}";
 		}
 }

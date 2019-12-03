@@ -37,6 +37,16 @@
             android:id="@+id/nav_mgrrcpa"
             android:icon="@drawable/ic_mgrrcpa"
             android:title="Rcpa" />                    <!--added by Aniket 14/09/2019-->
+
+        <item
+            android:id="@+id/nav_patientpr"
+            android:icon="@drawable/ic_patient_profile"
+            android:title="Patient Profile" />   <!--added by Aniket 13/11/2019-->
+        <item
+            android:id="@+id/nav_chemistpr"
+            android:icon="@drawable/ic_pharmacy"
+            android:title="Retail Reachout" />   <!--added by Aniket 14/11/2019-->
+
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"

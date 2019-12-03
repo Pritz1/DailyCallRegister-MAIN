@@ -2,6 +2,7 @@ package com.eis.dailycallregister.Fragment;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +32,16 @@ import com.cleveroad.adaptivetablelayout.LinkedAdaptiveTableAdapter;
 import com.cleveroad.adaptivetablelayout.OnItemClickListener;
 import com.cleveroad.adaptivetablelayout.OnItemLongClickListener;
 import com.eis.dailycallregister.Activity.HomeActivity;
+import com.eis.dailycallregister.Activity.UploadSelFie;
 import com.eis.dailycallregister.Api.RetrofitClient;
 import com.eis.dailycallregister.Others.Global;
 import com.eis.dailycallregister.Others.SampleLinkedTableAdapter;
 import com.eis.dailycallregister.Others.ViewDialog;
+import com.eis.dailycallregister.Pojo.GetRetailerAlertCnt;
 import com.eis.dailycallregister.Pojo.MissCallDocsRes;
 import com.eis.dailycallregister.Pojo.MisscalldrsItem;
+import com.eis.dailycallregister.Pojo.RetailerAndOptions;
+import com.eis.dailycallregister.Pojo.RetailerscntItem;
 import com.eis.dailycallregister.R;
 
 import java.text.ParseException;
@@ -52,7 +59,7 @@ import retrofit2.Response;
 
 public class Options extends Fragment {
 
-    MaterialButton dcr, mtp, uploadcard, vps, elearn,report,mgrrcpa;//report --> added by aniket 21/09/19 --> dcrrcpa
+    MaterialButton dcr, mtp, uploadcard, vps, elearn,report,mgrrcpa,patientpr,chemistpr;//report --> added by aniket 21/09/19 --> dcrrcpa
     ViewDialog progressDialoge;
     List<MisscalldrsItem> misscall = new ArrayList<>();
     LinearLayout menuoptions;
@@ -60,7 +67,8 @@ public class Options extends Fragment {
     String[][] misseddr;
     View view;
     String checkmtp = "";
-    //ArrayList<String> empacc = new ArrayList<>();
+
+    public List<RetailerscntItem> retailerscnt = new ArrayList<>();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -84,6 +92,9 @@ public class Options extends Fragment {
         elearn = view.findViewById(R.id.elearn);
         report = view.findViewById(R.id.report); //added by aniket
         mgrrcpa=view.findViewById(R.id.mgrrcpa); //added by aniket
+        patientpr=view.findViewById(R.id.patientpr); //added by aniket
+        chemistpr=view.findViewById(R.id.chemistpr); //added by aniket
+
         /*empacc.clear();
         //CD
         empacc.add("02680");
@@ -135,6 +146,8 @@ public class Options extends Fragment {
         empacc.add("02042");
         empacc.add("02712");*/
 
+        //getProps();
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
             // Do something for lollipop and above versions
             if (!Global.emplevel.equalsIgnoreCase("1")) {
@@ -156,12 +169,17 @@ public class Options extends Fragment {
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
                 report.setVisibility(View.GONE);
-
-
+                patientpr.setVisibility(View.GONE);
+                chemistpr.setVisibility(View.GONE);
             }
             else //added by aniket
             {
                 mgrrcpa.setVisibility(View.GONE);
+             //   Log.d("Global.patientProfile",Global.patientProfile);
+                /*if(null != Global.patientProfile && !Global.patientProfile.equalsIgnoreCase("Y"))
+                    patientpr.setVisibility(View.GONE);
+                if(null != Global.retailReachout && !Global.retailReachout.equalsIgnoreCase("Y"))
+                    chemistpr.setVisibility(View.GONE);*/
             }
 
         } else{
@@ -185,10 +203,16 @@ public class Options extends Fragment {
                 uploadcard.setVisibility(View.GONE);
                 vps.setVisibility(View.GONE);
                 report.setVisibility(View.GONE);
+                patientpr.setVisibility(View.GONE);
+                chemistpr.setVisibility(View.GONE);
             }
             else
             {
                 mgrrcpa.setVisibility(View.GONE);
+                /*if(null != Global.patientProfile && !Global.patientProfile.equalsIgnoreCase("Y"))
+                patientpr.setVisibility(View.GONE);
+                if(null != Global.retailReachout && !Global.retailReachout.equalsIgnoreCase("Y"))
+                chemistpr.setVisibility(View.GONE);*/
             }
 
 
@@ -216,7 +240,6 @@ public class Options extends Fragment {
                 }
             }
         });
-
         uploadcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,6 +326,36 @@ public class Options extends Fragment {
                 }
             }
         });
+              //added by Aniket 13/11/2019
+        patientpr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                intent.putExtra("ecode", Global.ecode);
+                intent.putExtra("date", Global.date);
+                intent.putExtra("dbprefix", Global.dbprefix);
+                intent.putExtra("openfrag","patientpr");
+                Bundle bndlanimation=ActivityOptions.makeCustomAnimation(getActivity(),R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+                startActivity(intent,bndlanimation);
+                getActivity().finish();
+            }
+        });
+              //added by Aniket 14/11/2019
+        chemistpr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                intent.putExtra("ecode", Global.ecode);
+                intent.putExtra("date", Global.date);
+                intent.putExtra("dbprefix", Global.dbprefix);
+                intent.putExtra("openfrag","chemistpr");
+                Bundle bndlanimation=ActivityOptions.makeCustomAnimation(getActivity(),R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+                startActivity(intent,bndlanimation);
+                getActivity().finish();
+
+            }
+        });
+
 
         mtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -434,11 +487,14 @@ public class Options extends Fragment {
         }*/
 
 
+
+
         return view;
 
     }
 
     private void getMissCalls() {
+
         String[] newdate = Global.date.split("-");
         progressDialoge.show();
         Call<MissCallDocsRes> call = RetrofitClient.getInstance()
@@ -470,6 +526,7 @@ public class Options extends Fragment {
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
                             //do nothing
                         }
                     });
@@ -550,7 +607,6 @@ public class Options extends Fragment {
             public void onItemLongClick(int row, int column) {
 
             }
-
             @Override
             public void onLeftTopHeaderLongClick() {
 
@@ -596,5 +652,81 @@ public class Options extends Fragment {
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
+//Aniket 01-12-2019
+    public void getRetailerAlert()
+        {
+            //Log.d("getRetailerAlert","getRetailerAlert");
+            Call<GetRetailerAlertCnt> call = RetrofitClient.getInstance().getApi().getRetailerCntAlert( Global.netid, Global.dbprefix);
+            call.enqueue(new Callback<GetRetailerAlertCnt>() {
+                @Override
+                public void onResponse(Call<GetRetailerAlertCnt> call, Response<GetRetailerAlertCnt> response) {
+                    GetRetailerAlertCnt res = response.body();
+                   // Log.d("res", res.toString());
+                    if (!res.isError()) {
+                       // Log.d("retailerscnt", retailerscnt.toString());
+
+                        retailerscnt = res.getRetailerscnt();
+                        RetailerscntItem rct = retailerscnt.get(0);
+
+                        int totaldrs = Integer.parseInt((rct.getTot() != null) ? rct.getTot() : 0 + "");
+                        int totalupl = Integer.parseInt((rct.getTotUpld() != null) ? rct.getTotUpld() : 0 + "");
+                        int totalnotupl = totaldrs - totalupl;
+
+                       // Log.d("getTot", rct.getTot());
+                       // Log.d("getTotUpld", rct.getTotUpld());
+                       // Log.d("totalnotupl", totalnotupl + "");
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setCancelable(true);
+                        builder.setTitle("Alert");
+                        builder.setMessage( "out of " + rct.getTot() + " -> " + totalnotupl + " Chemists To Go ");
+                        builder.setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<GetRetailerAlertCnt> call, Throwable t) {
+                    Log.d("onFailure","onFailure");
+                }
+            });
+
+        }
+//Aniket 01-12-2019
+public void getProps() {
+       // Log.d("getProps","getProps");
+    retrofit2.Call<RetailerAndOptions> call = RetrofitClient.getInstance().getApi().getProps(Global.dbprefix);
+    call.enqueue(new Callback<RetailerAndOptions>() {
+        @Override
+        public void onResponse(Call<RetailerAndOptions> call, Response<RetailerAndOptions> response) {
+            RetailerAndOptions res=response.body();
+            //Log.d("res", res.toString());
+            Global.retailReachout=res.getRetailReachout();
+            Global.retailerAlert=res.getRetailerAlert();
+            Global.patientProfile=res.getPatientProfile();
+            //Log.d("retailerOprational", Global.retailReachout);
+           // Log.d("retailerAlert",Global.retailerAlert);
+           // Log.d("patientProfile", Global.patientProfile);
+
+            Log.d("Global.retailerAlert",Global.retailerAlert);
+            if(Global.retailerAlert.equalsIgnoreCase("Y")) {
+                getRetailerAlert();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RetailerAndOptions> call, Throwable t) {
+            Snackbar.make(menuoptions, "Failed to get Options !", Snackbar.LENGTH_LONG).show();
+
+        }
+    });
+}
+
 }
 

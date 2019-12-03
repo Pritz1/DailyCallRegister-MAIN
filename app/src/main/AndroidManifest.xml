@@ -21,16 +21,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Quiz"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.MgrRcpaDrList"
+        <activity android:name=".Activity.AddOtherChemist"></activity>
+        <activity android:name=".Activity.PatientList" />
+        <activity android:name=".Activity.UploadSelFie" />
+        <activity
+            android:name=".Activity.DrListToAddOtherChemist"
+            android:theme="@style/AppSearchView" />
+        <activity android:name=".Activity.CapNUpSelfie" />
+        <activity android:name=".Activity.ChemistDetails" />
+        <activity android:name=".Activity.ChemistProfileList"
+            />
+        <activity
+            android:name=".Activity.PatientProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.PatientDrList"
             android:screenOrientation="portrait"
-            android:theme="@style/AppSearchView"></activity>
-
-        <activity android:name=".Activity.MgrRCPA"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.DCRRCPA"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppSearchView" />
+        <activity
+            android:name=".Activity.Quiz"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MgrRcpaDrList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppSearchView" />
+        <activity
+            android:name=".Activity.MgrRCPA"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.DCRRCPA"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.CheckDCRSummary"
             android:screenOrientation="portrait" />

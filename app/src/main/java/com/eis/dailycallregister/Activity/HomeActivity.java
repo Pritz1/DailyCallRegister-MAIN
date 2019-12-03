@@ -1,5 +1,6 @@
 package com.eis.dailycallregister.Activity;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -133,6 +134,10 @@ public class HomeActivity extends AppCompatActivity
             displaySelectedScreen(R.id.nav_rep);
         }else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("mgrrcpa")){
             displaySelectedScreen(R.id.nav_mgrrcpa);                  //added by Aniket 26/09/2019
+        }else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("patientpr")){
+            displaySelectedScreen(R.id.nav_patientpr);                  //added by Aniket 13/11/2019
+        }else if (getIntent().getStringExtra("openfrag").equalsIgnoreCase("chemistpr")){
+            displaySelectedScreen(R.id.nav_chemistpr);                  //added by Aniket 14/11/2019
         }
     }
 
@@ -150,14 +155,19 @@ public class HomeActivity extends AppCompatActivity
             builder.setPositiveButton("EXIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+//                    finish();
+//                    HomeActivity.this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+                    //aniket 30112019
+                    Global.password = null;
+                    Intent intent = new Intent(HomeActivity.this, LoginScreen.class);
+                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(HomeActivity.this, R.anim.trans_right_in, R.anim.trans_right_out).toBundle();
+                    startActivity(intent, bndlanimation);
                     finish();
-                    HomeActivity.this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
                 }
             });
             builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
                 }
             });
             AlertDialog dialog2 = builder.create();
@@ -192,6 +202,7 @@ public class HomeActivity extends AppCompatActivity
 
         //creating fragment object
         Fragment fragment = null;
+
 
         //initializing the fragment object which is selected
         switch (itemId) {
@@ -250,6 +261,29 @@ public class HomeActivity extends AppCompatActivity
                     fragment = new MgrRcpaFragment();
                 }
                 break;
+
+            case R.id.nav_patientpr:
+                if (Global.emplevel.equalsIgnoreCase("1") ) {
+                    Intent intent = new Intent(HomeActivity.this, PatientDrList.class);
+                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(HomeActivity.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                    startActivity(intent, bndlanimation);
+                }else{
+                    new Global().afmNotAllowed(HomeActivity.this);           //added by aniket  26/11/2019
+                }
+               // new Global().alert(HomeActivity.this,"Coming Soon...!","Access Denied");
+                break;
+
+            case R.id.nav_chemistpr:
+                //new Global().alert(HomeActivity.this,"Coming Soon...!","Access Denied");
+                if (Global.emplevel.equalsIgnoreCase("1") ) {
+                    Intent intent = new Intent(HomeActivity.this, ChemistProfileList.class);
+                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(HomeActivity.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                    startActivity(intent, bndlanimation);
+                }else{
+                    new Global().afmNotAllowed(HomeActivity.this);                 //added by aniket  26/11/2019
+                }
+                break;
+
 
             case R.id.nav_help:
                 //new Global().notAllowed(HomeActivity.this);

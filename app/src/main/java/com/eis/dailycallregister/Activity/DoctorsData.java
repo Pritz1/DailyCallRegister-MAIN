@@ -485,6 +485,10 @@ public class DoctorsData extends AppCompatActivity {
                                          if (seldraw.size() > 0 && seldraw.contains(model.getCNTCD())) {
                                              myHolder.ckb.setChecked(true);
                                          }
+                                         if(model.getVstCrdPrsnt() == null || model.getVstCrdPrsnt().equalsIgnoreCase("N")){
+                                             myHolder.ckb.setEnabled(false);
+
+                                         }
                                          myHolder.ckb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                              @Override
                                              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -493,6 +497,8 @@ public class DoctorsData extends AppCompatActivity {
                                                  } else {
                                                      seldraw.remove(model.getCNTCD());
                                                  }
+
+
                                              }
                                          });
 
@@ -908,7 +914,7 @@ public class DoctorsData extends AppCompatActivity {
         progressDialoge.show();
 
         retrofit2.Call<DCRDDocListRes> call1 = RetrofitClient
-                .getInstance().getApi().getDCRDDrs(Global.dcrno, Global.dbprefix);
+                .getInstance().getApi().getDCRDDrs(Global.dcrno, Global.dbprefix,Global.netid); //Global.netid-> added by prithvi 27-11-2019
         call1.enqueue(new Callback<DCRDDocListRes>() {
             @Override
             public void onResponse(retrofit2.Call<DCRDDocListRes> call1, Response<DCRDDocListRes> response) {

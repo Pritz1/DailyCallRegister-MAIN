@@ -61,7 +61,7 @@
         android:layout_marginTop="16dp"
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
-        app:rippleColor="@color/colorPrimary"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
     <android.support.design.button.MaterialButton
         android:layout_width="match_parent"
@@ -77,7 +77,7 @@
         android:layout_marginTop="16dp"
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
-        app:rippleColor="@color/colorPrimary"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
     <android.support.design.button.MaterialButton
         android:layout_width="match_parent"
@@ -93,7 +93,7 @@
         android:layout_marginTop="16dp"
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
-        app:rippleColor="@color/colorPrimary"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
 
     <android.support.design.button.MaterialButton
@@ -110,7 +110,7 @@
         android:layout_marginTop="16dp"
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
-        app:rippleColor="@color/colorPrimary"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
 
     <android.support.design.button.MaterialButton
@@ -127,6 +127,37 @@
         android:layout_marginTop="16dp"
         app:cornerRadius="8dp"
         android:textColor="@color/textcolorwhite"
-        app:rippleColor="@color/colorPrimary"/>                  <!--added by Aniket 14/09/2019-->
+        app:rippleColor="@color/colorPrimaryDark"/>                  <!--added by Aniket 14/09/2019-->
 
+        <android.support.design.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="PATIENT PROFILE"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="5sp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeStepGranularity="1sp"
+            android:id="@+id/patientpr"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="8dp"
+            android:textColor="@color/textcolorwhite"
+            app:rippleColor="@color/colorPrimaryDark"/>                <!--added by Aniket 13/11/2019-->
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/chemistpr"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="5sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:text="RETAIL REACHOUT"
+            app:cornerRadius="8dp"
+            android:textColor="@color/textcolorwhite"
+            app:rippleColor="@color/colorPrimaryDark"/>                 <!--added by Aniket 14/11/2019-->
 </LinearLayout>

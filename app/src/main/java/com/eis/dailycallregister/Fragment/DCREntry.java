@@ -126,6 +126,7 @@ public class DCREntry extends Fragment {
         l2.setVisibility(View.GONE);
         l3.setVisibility(View.GONE);
         getdcrdate();
+        showInactiveDrsAlert(); //added by prithvi 26-11-2019 (As drs whose visiting cards are not uploaded are to be inactivated from the system)
         //progressDialoge.dismiss();
 
         dd.setOnClickListener(new View.OnClickListener() {
@@ -345,6 +346,7 @@ public class DCREntry extends Fragment {
 
     public void getdcrdate() {
         progressDialoge.show();
+       // progressDialoge.show();
         //Log.d("progress 4-->",ecode);
         Call<GetDcrDateRes> call1 = RetrofitClient
                 .getInstance().getApi().getDcrdate(Global.ecode, Global.netid, Global.dbprefix);
@@ -402,7 +404,7 @@ public class DCREntry extends Fragment {
             public void onResponse(Call<DefaultResponse> call1, Response<DefaultResponse> response) {
                 DefaultResponse res = response.body();
 
-                //Log.d("progress 5-->",ecode);
+                //Log.d("progress 5-->",res.toString());
                 if (res.isError()) {
                     progressDialoge.dismiss();
                     dialogCloseTypeError(getContext(), res.getErrormsg());
@@ -414,6 +416,7 @@ public class DCREntry extends Fragment {
 
             @Override
             public void onFailure(Call<DefaultResponse> call1, Throwable t) {
+                //Log.d("thrown->",t.toString());
                 progressDialoge.dismiss();
                 Snackbar snackbar = Snackbar.make(sv, "Failed to check MTP !", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Re-try", new View.OnClickListener() {
@@ -1053,5 +1056,27 @@ public class DCREntry extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
+    public void showInactiveDrsAlert() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(true);
+        builder.setTitle("Alert");
+        builder.setMessage("All Drs whose Visiting Card is not uploaded are now inactivated from DCR.(i.e. such Drs will not be allowed to select for reporting)");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
+
 
 }

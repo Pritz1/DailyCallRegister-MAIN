@@ -2,7 +2,6 @@ package com.eis.dailycallregister.Activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.eis.dailycallregister.Api.RetrofitClient;
 import com.eis.dailycallregister.Others.Global;
 import com.eis.dailycallregister.Others.ViewDialog;
@@ -30,7 +28,6 @@ import com.eis.dailycallregister.Pojo.MgrRcpaDrRes;
 import com.eis.dailycallregister.Pojo.RcpadrListItem;
 import com.eis.dailycallregister.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,17 +35,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQueryTextListener { //by prithvi SearchView.OnQueryTextListener
+public class DrListToAddOtherChemist extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-     RecyclerView drlistrecvw;
-     ViewDialog progressDialoge;
+
+    RecyclerView drlistrv;
+    ViewDialog progressDialoge;
     RelativeLayout nsv;
 
-
-    LinearLayout ll1;
-    TextView hqname;
-    String headqname;
-    String hname,netid;
+    String sttype="";
 
     public List<RcpadrListItem> drlist= new ArrayList<>();
     public List<RcpadrListItem> drlistcopy = new ArrayList<>();
@@ -56,75 +50,66 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mgr_rcpa_drlist);
-        hname = getIntent().getStringExtra("hname");
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#00E0C6'>DOCTOR LIST OF "+hname+"</font>"));
+        setContentView(R.layout.dr_list_to_add_other_chemist);
+
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#00E0C6'>Doctor List</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_black);
-        netid = getIntent().getStringExtra("netid");
 
-        hqname=findViewById(R.id.hqname);
+
         nsv = findViewById(R.id.nsv);
-        drlistrecvw=findViewById(R.id.drlistrecvw);
+        drlistrv=findViewById(R.id.drlistrv);
         progressDialoge=new ViewDialog(this);
+
         drListAdapter();
-
-
-
         callApi();
-
-
     }
-
-
-
 
     public void callApi()
     {
-       // Log.d("netid",netid);
+        // Log.d("netid",netid);
         progressDialoge.show();
 
-      retrofit2.Call<MgrRcpaDrRes> call1=RetrofitClient.getInstance().getApi().getDrList(netid,Global.dbprefix);
+        retrofit2.Call<MgrRcpaDrRes> call1= RetrofitClient.getInstance().getApi().getDrList(Global.netid, Global.dbprefix);
 
-      call1.enqueue(new Callback<MgrRcpaDrRes>() {
-          @Override
-          public void onResponse(Call<MgrRcpaDrRes> call, Response<MgrRcpaDrRes> response) {
-              progressDialoge.dismiss();
-             //Log.d("response",response.toString());
-              MgrRcpaDrRes res = response.body();
-            //  Log.d("response 2",res.toString());
-
-              drlist =  res.getDrlist();
-              drlistcopy = new ArrayList<>(drlist); //prithvi 10/10/2019 - to include search functionality.
-          //   Log.d("hqpsrlist 1",drlist.toString());
-              drlistrecvw.setVisibility(View.VISIBLE);
-              drlistrecvw.getAdapter().notifyDataSetChanged();
-          }
-          @Override
-          public void onFailure(Call<MgrRcpaDrRes> call, Throwable t) {
-           //   Log.d("onFailure","onFailure");
-              progressDialoge.dismiss();
-              Snackbar snackbar = Snackbar.make(nsv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
-                      .setAction("Retry", new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {
-                              callApi();
-                          }
-                      });
-              snackbar.show();
-          }
-      });
+        call1.enqueue(new Callback<MgrRcpaDrRes>() {
+            @Override
+            public void onResponse(Call<MgrRcpaDrRes> call, Response<MgrRcpaDrRes> response) {
+                progressDialoge.dismiss();
+                //Log.d("response",response.toString());
+                MgrRcpaDrRes res = response.body();
+//                Log.d("response 2",res.toString());
+                drlist =  res.getDrlist();
+                drlistcopy = new ArrayList<>(drlist); //prithvi 10/10/2019 - to include search functionality.
+                //   Log.d("hqpsrlist 1",drlist.toString());
+                drlistrv.setVisibility(View.VISIBLE);
+                drlistrv.getAdapter().notifyDataSetChanged();
+            }
+            @Override
+            public void onFailure(Call<MgrRcpaDrRes> call, Throwable t) {
+                //   Log.d("onFailure","onFailure");
+                progressDialoge.dismiss();
+                Snackbar snackbar = Snackbar.make(nsv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                callApi();
+                            }
+                        });
+                snackbar.show();
+            }
+        });
     }
 
     private  void drListAdapter()
     {
-        drlistrecvw.setNestedScrollingEnabled(false);
-        drlistrecvw.setLayoutManager(new LinearLayoutManager(MgrRcpaDrList.this));
-        drlistrecvw.setAdapter(new RecyclerView.Adapter() {
+        drlistrv.setNestedScrollingEnabled(false);
+        drlistrv.setLayoutManager(new LinearLayoutManager(DrListToAddOtherChemist.this));
+        drlistrv.setAdapter(new RecyclerView.Adapter() {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(MgrRcpaDrList.this).inflate(R.layout.mgr_rcpa_drlist_adapter, viewGroup, false);
+                View view = LayoutInflater.from(DrListToAddOtherChemist.this).inflate(R.layout.mgr_rcpa_drlist_adapter, viewGroup, false);
                 Holder holder = new Holder(view);
                 return holder;
             }
@@ -147,13 +132,12 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
                 myHolder.drcdndrname.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MgrRcpaDrList.this,MgrRCPA.class);
+                        Intent intent = new Intent(DrListToAddOtherChemist.this,AddOtherChemist.class);
                         intent.putExtra("drcd",model.getDrcd() );
                         intent.putExtra("wnetid", model.getNetid());
                         intent.putExtra("drname", model.getDrname());
-                        intent.putExtra("cntcd", model.getCntcd());
-                        intent.putExtra("hname", hname);
-                        Bundle bndlanimation = ActivityOptions.makeCustomAnimation(MgrRcpaDrList.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                        intent.putExtra("doccntcd", model.getCntcd());
+                        Bundle bndlanimation = ActivityOptions.makeCustomAnimation(DrListToAddOtherChemist.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
                         startActivity(intent, bndlanimation);
                     }
                 });
@@ -175,6 +159,7 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -185,10 +170,16 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
 
     @Override
     public void onBackPressed() {
-             finish();
-          MgrRcpaDrList.this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+         finish();
+         DrListToAddOtherChemist.this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        /*Intent intent = new Intent(DrListToAddOtherChemist.this, HomeActivity.class);
+        intent.putExtra("openfrag","home");
+        Bundle bndlanimation=ActivityOptions.makeCustomAnimation(DrListToAddOtherChemist.this,R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+        startActivity(intent,bndlanimation);*/
+
     }
 //prithvi -> 10/10/2019 for search functionality
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //MenuInflater inflater = getMenuInflater();
@@ -203,12 +194,9 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
         SearchView.SearchAutoComplete autoComplete = (SearchView.SearchAutoComplete)third.getChildAt(0);
         autoComplete.setHintTextColor(getResources().getColor(R.color.charcoal));
         autoComplete.setTextColor(getResources().getColor(R.color.charcoal));
-
         searchView.setOnQueryTextListener(this);
-
         ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setImageResource(R.drawable.ic_clear_24dp);
-
         //Field mCollapseIcon = searchView.get;
 
         return true;
@@ -239,9 +227,8 @@ public class MgrRcpaDrList extends AppCompatActivity implements SearchView.OnQue
             drlist.addAll(drlistcopy);
         }
 
-        drlistrecvw.getAdapter().notifyDataSetChanged();
+        drlistrv.getAdapter().notifyDataSetChanged();
 
         return true;
     }
-
 }

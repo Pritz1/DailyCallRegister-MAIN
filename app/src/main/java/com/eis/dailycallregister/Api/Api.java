@@ -2,7 +2,9 @@ package com.eis.dailycallregister.Api;
 
 
 import com.eis.dailycallregister.Pojo.AreaJntWrkRes;
+import com.eis.dailycallregister.Pojo.ChemistDoctorNameRes;
 import com.eis.dailycallregister.Pojo.ChemistListAWRes;
+import com.eis.dailycallregister.Pojo.ChemistProRes;
 import com.eis.dailycallregister.Pojo.ConfirmDCRRes;
 import com.eis.dailycallregister.Pojo.DBList;
 import com.eis.dailycallregister.Pojo.DCRDChemListRes;
@@ -23,6 +25,7 @@ import com.eis.dailycallregister.Pojo.GetPopupQuesRes;
 import com.eis.dailycallregister.Pojo.GetRCPABrandListRes;
 import com.eis.dailycallregister.Pojo.GetRCPACompProdLstRes;
 import com.eis.dailycallregister.Pojo.GetRCPAPulseChemist;
+import com.eis.dailycallregister.Pojo.GetRetailerAlertCnt;
 import com.eis.dailycallregister.Pojo.IsDCRCorrectRes;
 import com.eis.dailycallregister.Pojo.MgrRCPARes;
 import com.eis.dailycallregister.Pojo.MgrRcpaDrRes;
@@ -31,22 +34,22 @@ import com.eis.dailycallregister.Pojo.NewMTPListOfMTHRes;
 import com.eis.dailycallregister.Pojo.NewNonFliedWrkRes;
 import com.eis.dailycallregister.Pojo.NextMTPListRes;
 import com.eis.dailycallregister.Pojo.NonFieldWrkRes;
+import com.eis.dailycallregister.Pojo.PatientListRes;
 import com.eis.dailycallregister.Pojo.QseraPopUpRes;
 import com.eis.dailycallregister.Pojo.QuizMainRes;
 import com.eis.dailycallregister.Pojo.RedicnePopUpRes;
+import com.eis.dailycallregister.Pojo.RetailerAndOptions;
 import com.eis.dailycallregister.Pojo.SampleAndGiftReceiptRes;
+import com.eis.dailycallregister.Pojo.SetChemistkeyPerRes;
 import com.eis.dailycallregister.Pojo.VstCardDrLstRes;
 import com.eis.dailycallregister.Pojo.VstPlnDocLstRes;
 import com.eis.dailycallregister.Pojo.VstPlnSumRes;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface Api {
 
@@ -164,7 +167,8 @@ public interface Api {
     @POST("getdcrddoc.php")
     Call<DCRDDocListRes> getDCRDDrs(
             @Field("dcrno") String dcrno,
-            @Field("DBPrefix") String DBPrefix
+            @Field("DBPrefix") String DBPrefix,
+            @Field("netid") String netid
     );
 
     @FormUrlEncoded
@@ -733,5 +737,78 @@ public interface Api {
     );
 
 
+    @FormUrlEncoded
+    @POST("chemistProfileList.php")                     //added by aniket 20/11/2019
+    Call<ChemistProRes> chemistProfileList(
+            @Field("netid") String netid,
+            @Field("mth") String mth,
+            @Field("yr") String yr,
+            @Field("DBPrefix") String dbprefix
+    );
+
+    @FormUrlEncoded
+    @POST("savepatientDetails.php")
+    Call<DefaultResponse> savePatientData(
+            @Field("netid") String netid,
+            @Field("cntcd") String cntcd,
+            @Field("patientname") String patientname,
+            @Field("parentname") String parentname,
+            @Field("phonenumber") String phonenumber,
+            @Field("gender") String gender,
+            @Field("ecode") String ecode,
+            @Field("age") String age,
+            @Field("DBPrefix") String dbprefix
+    );                                                               //added by aniket  26/11/2019
+
+    @FormUrlEncoded
+    @POST("getPatientList.php")
+    Call<PatientListRes> getPatientList(
+            @Field("netid") String netid,
+            @Field("cntcd") String cntcd,
+            @Field("DBPrefix") String dbprefix
+    );                                                                 //added by aniket  26/11/2019
+
+
+    @FormUrlEncoded
+    @POST("getDoctorNameOfChemist.php")
+    Call<ChemistDoctorNameRes> getChemistDrName(
+            @Field("netid") String netid,
+            @Field("cntcd") String cntcd,
+            @Field("sttype") String sttype,
+            @Field("DBPrefix") String dbprefix
+    );
+
+    @FormUrlEncoded
+    @POST("getChemistDataToSet.php")
+    Call<SetChemistkeyPerRes> getChemistData(
+            @Field("cntcd") String cntcd,
+            @Field("netid") String netid,
+            @Field("DBPrefix") String dbprefix
+    );
+
+
+
+    @FormUrlEncoded
+    @POST("getRetailerAlert.php")
+    Call<GetRetailerAlertCnt> getRetailerCntAlert(
+            @Field("netid") String netid,
+            @Field("DBPrefix") String dbprefix
+    );
+
+    @FormUrlEncoded
+    @POST("props.php")
+    Call<RetailerAndOptions> getProps(
+            @Field("DBPrefix") String dbprefix
+    );
+
+
+    @FormUrlEncoded
+    @POST("deletePatient.php")
+    Call<PatientListRes> deletePatient(
+            @Field("netid") String netid,
+            @Field("cntcd") String cntcd,
+            @Field("patno") String patno,
+            @Field("DBPrefix") String dbprefix
+    );
 
 }

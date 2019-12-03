@@ -42,6 +42,9 @@ public class Global {
     public static int misscallpopup = 0;
     public static String whichmth = null;
     public static String FinancialStartDate= null;			//added by aniket 14/09/2019
+    public static String retailerAlert= null;			//added by aniket 30/11/2019
+    public static String retailReachout= null;			//added by aniket 30/11/2019
+    public static String patientProfile= null;			//added by aniket 30/11/2019
 
 
     public void clearGlobal(String mode) {
@@ -67,6 +70,9 @@ public class Global {
             emplevel = null;
             misscallpopup = 0;
             whichmth = null;
+            retailerAlert= null;
+            retailReachout= null;
+            patientProfile= null;
         } else if (mode.equalsIgnoreCase("DCR")) {
             dcrdate = null;
             dcrdateday = null;
@@ -143,6 +149,23 @@ public class Global {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);                  //added aniket 28/09/2019
         builder.setCancelable(true);
         builder.setMessage("Only AFM and RM can access this feature !");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void alert(final Context context,String msg,String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(msg);
         builder.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     @Override
